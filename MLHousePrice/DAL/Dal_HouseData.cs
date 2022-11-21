@@ -13,13 +13,14 @@ namespace MLHousePrice.DAL
     {
         public float HouseMLModel(HouseData houseData)
         {
+           
             MLContext mlContext = new MLContext(seed: 0);
             
             IDataView trainingData = mlContext.Data.LoadFromTextFile<HouseData>("D:\\MLHousePrice\\Book1.csv", separatorChar: ',', hasHeader: false);
             
             var pipeline = mlContext.Transforms.Text.FeaturizeText("RoofStyle")
                 .Append(mlContext.Transforms.Concatenate("Features", new[] { "Size", "YearBuilt", "RoofStyle" }))
-                .Append(mlContext.Regression.Trainers.Sdca(labelColumnName: "Price", maximumNumberOfIterations: 100));
+                .Append(mlContext.Regression.Trainers.Sdca(labelColumnName: "Label", maximumNumberOfIterations: 100));
 
             // 3. Train model
             var model = pipeline.Fit(trainingData);

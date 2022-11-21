@@ -15,6 +15,7 @@ namespace MLHousePrice.BLL
 
 
         [LoadColumn(1)]
+        [ColumnName("Label")]
         public float Price { get; set; }
 
         [LoadColumn(2)]
